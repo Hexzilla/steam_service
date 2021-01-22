@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="../assets/dist/admin/table.css">
+<link rel="stylesheet" href="../assets/dist/admin/table.css">
  <link rel="stylesheet" href="../assets/dist/admin/datatables.net-bs/css/dataTables.bootstrap.min.css">
  <link rel="stylesheet" href="../assets/dist/admin/datatables.net-bs/css/buttons.dataTables.min.css">
  <link rel="stylesheet" href="../assets/dist/admin/bootstrap-fileinput.css">
@@ -9,14 +9,22 @@
 			<table id="blog-grid" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
-                        <th>Gmail</th>
-                        <th>Password</th>
+                        <th>Game Name</th>
+                        <th>MS Game Account</th>
+                        <th>MS Game Password</th>
+                        <th>Code Email</th>
+                        <th>Code Password</th>
+                        <th>System32 ID</th>
+                        <th>App ID</th>
+                        <th>DBDATA</th>
                         <th>Using Customs</th>
                         <th>id</th>
+                        <th>gameid</th>
                         <th style="text-align: right;">
                             Action
-                            <a title="add" data-toggle="modal" data-target="#modal-add" class="add-row" onclick="$('#add-blog-id').val(0);$('#add-blog-name').val('');$('#add-blog-gmail').val('');$('#add-blog-password').val('');" aria-describedby="ui-tooltip-0"><span class="add-icon-custom"></span></a>
+                            <a title="add" data-toggle="modal" data-target="#modal-add" class="add-row" onclick="$('#add-blog-id').val(0);$('#add-blog-name').val('');$('#add-blog-account').val('');$('#add-blog-password').val('');$('#add-blog-codegmail').val('');$('#add-blog-codepassword').val('');$('#add-blog-system32id').val('');$('#add-blog-appid').val('');$('#add-blog-dbdata').val('');" aria-describedby="ui-tooltip-0"><span class="add-icon-custom"></span></a>
                         </th>
                     </tr>
                 </thead>
@@ -40,6 +48,16 @@
         <div class="row"><div class="col-md-12"><form class="form-horizontal">
         <div class="box box-info" style="border-top: none;background: none;">
             <div class="form-group">
+              <label class="col-sm-2 control-label">Game Name</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="add-blog-gamename">
+                <?php foreach($gamesList as $game){
+                    echo "<option value='".$game['id']."'>{$game['name']}</option>";
+                }?>    
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 
               <div class="col-sm-10">
@@ -48,17 +66,52 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label">Gmail</label>
+              <label for="inputEmail3" class="col-sm-2 control-label">MS Account</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="add-blog-gmail" placeholder="Gmail">
+                <input type="text" class="form-control" id="add-blog-account" placeholder="Account">
               </div>
             </div>
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+              <label for="inputEmail3" class="col-sm-2 control-label">MS Password</label>
 
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="add-blog-password" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Code Gmail</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-blog-codegmail" placeholder="Code Gmail">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Code Password</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-blog-codepassword" placeholder="Code Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">System3 ID</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-blog-system32id" placeholder="System3 ID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">AppID</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-blog-appid" placeholder="App ID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">DBDATA</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="add-blog-dbdata" placeholder="DBDATA">
               </div>
             </div>
         </div>
@@ -100,19 +153,33 @@ function addBlog(){
         $("#add-blog-name").focus();
         return;
     }
-    if ($("#add-blog-gmail").val() == '') {
-        $("#add-blog-gmail").focus();
+    if ($("#add-blog-account").val() == '') {
+        $("#add-blog-account").focus();
         return;
     }
     if ($("#add-blog-password").val() == '') {
         $("#add-blog-password").focus();
         return;
     }
+    if ($("#add-blog-codegmail").val() == '') {
+        $("#add-blog-codegmail").focus();
+        return;
+    }
+    if ($("#add-blog-codepassword").val() == '') {
+        $("#add-blog-codepassword").focus();
+        return;
+    }
     var form_data = new FormData();
     form_data.append('id',  $("#add-blog-id").val());
     form_data.append('name', $("#add-blog-name").val());
-    form_data.append('gmail', $("#add-blog-gmail").val());
+    form_data.append('gamename', $("#add-blog-gamename").val());
+    form_data.append('account', $("#add-blog-account").val());
     form_data.append('password', $("#add-blog-password").val());
+    form_data.append('codegmail', $("#add-blog-codegmail").val());
+    form_data.append('codepassword', $("#add-blog-codepassword").val());
+    form_data.append('system32id', $("#add-blog-system32id").val());
+    form_data.append('appid', $("#add-blog-appid").val());
+    form_data.append('dbdata', $("#add-blog-dbdata").val());
     $.ajax({
         url: 'steam/msaccountSave',
         cache: false,
@@ -140,15 +207,21 @@ function editBlog(id){
     for(var i=0;i<data.length;i++)if(data[i].id==id){
         $('#add-blog-id').val(id);
         $('#add-blog-name').val(data[i].name);
-        $('#add-blog-gmail').val(data[i].gmail);
+        $('#add-blog-gamename').val(data[i].gameid);
+        $('#add-blog-account').val(data[i].account);
         $('#add-blog-password').val(data[i].password);
+        $('#add-blog-codegmail').val(data[i].code_gmail);
+        $('#add-blog-codepassword').val(data[i].code_password);
+        $('#add-blog-system32id').val(data[i].system32id);
+        $('#add-blog-appid').val(data[i].appid);
+        $('#add-blog-dbdata').val(data[i].dbdata);
     }
 }
 function deleteBlog(id){
     form_data = new FormData();
     form_data.append('id',  id);
     $.ajax({
-        url: 'steam/msaccountDelete',
+        url: 'steam/msAccountDelete',
         cache: false,
         contentType: false,
         processData: false,
@@ -166,11 +239,19 @@ function deleteBlog(id){
         }
     });
 }
+cols.push({ "mData": null,'visible':true,'bSearchable':false,'bSortable':false,'sDefaultContent': '<div class="expand /">','sWidth': "30px"});
 cols.push({ "mData": 'name','visible':true,'bSearchable':true,'bSortable':true});
-cols.push({ "mData": 'gmail','visible':true,'bSearchable':true,'bSortable':true});
+cols.push({ "mData": 'game_name','visible':true,'bSearchable':true,'bSortable':true});
+cols.push({ "mData": 'account','visible':true,'bSearchable':true,'bSortable':true});
 cols.push({ "mData": 'password','visible':true,'bSearchable':true,'bSortable':false});
+cols.push({ "mData": 'code_gmail','visible':false,'bSearchable':true,'bSortable':true});
+cols.push({ "mData": 'code_password','visible':false,'bSearchable':true,'bSortable':false});
+cols.push({ "mData": 'system32id','visible':false,'bSearchable':true,'bSortable':true});
+cols.push({ "mData": 'appid','visible':false,'bSearchable':true,'bSortable':true});
+cols.push({ "mData": 'dbdata','visible':false,'bSearchable':true,'bSortable':true});
 cols.push({ "mData": 'cnt','visible':true,'bSearchable':true,'bSortable':true});
 cols.push({ "mData": 'id','visible':false,'bSearchable':false,'bSortable':true});
+cols.push({ "mData": 'gameid','visible':false,'bSearchable':false,'bSortable':true});
 cols.push({ "mData": 'action','visible':true,'bSearchable':false,'bSortable':false});
 $(document).ready(function(){
     var tblDef={
@@ -186,5 +267,54 @@ $(document).ready(function(){
         dom: 'Bfrtip'
     };
     grid = $('#blog-grid').DataTable(tblDef);
+    function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        sOut="";
+        sOut+='<div style=""><table width="100%">'+
+            '<tr height="28px">'+
+              '<td width="20px"></td>'+
+              '<td width="150px">Code Gmail:</td>'+
+              '<td width="*">'+aData['code_gmail']+'</td>'+
+            '</tr>'+
+            '<tr height="28px">'+
+              '<td width="20px"></td>'+
+              '<td width="150px">Code Password:</td>'+
+              '<td width="*">'+aData['code_password']+'</td>'+
+            '</tr>'+
+            '<tr height="28px">'+
+              '<td width="20px"></td>'+
+              '<td width="150px">System32 ID:</td>'+
+              '<td width="*">'+aData['system32id']+'</td>'+
+            '</tr>'+
+            '<tr height="28px">'+
+              '<td width="20px"></td>'+
+              '<td width="150px">AppID:</td>'+
+              '<td width="*">'+aData['appid']+'</td>'+
+            '</tr>'+
+            '<tr height="28px">'+
+              '<td width="20px"></td>'+
+              '<td width="150px">DBDATA</td>'+
+              '<td width="*">'+aData['dbdata']+'</td>'+
+            '</tr>'+
+        '</table></div>';    
+        return sOut;
+    }
+    $('#blog-grid tbody').on('click', 'tr', function () {
+        var grid = $('#blog-grid').dataTable();
+        var nTr = $(this);
+        if(grid.fnIsOpen($(this))){
+            grid.fnClose(nTr);
+            $(this).find('td div.open').removeClass('open');
+        }else{
+            $(this).parent().find('tr').each(function (i, el) {
+                $(this).find('td div.open').removeClass('open');
+                grid.fnClose($(this));
+            });
+        
+            $.fn.dataTableExt.sErrMode = 'throw' ;
+            $(this).find('td div.expand').addClass('open');
+            grid.fnOpen(nTr, fnFormatDetails(grid, nTr), 'details');
+        }
+    });
 });
 </script>

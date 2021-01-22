@@ -103,17 +103,22 @@ $config['ci_bootstrap'] = array(
 		'steam_games' => array(
 			'name'		=> 'Steam Games',
 			'url'		=> 'steam/games',
-			'icon'		=> 'fa fa-cog',
+			'icon'		=> 'fa fa-steam-square',
 		),
 		'steam_account' => array(
 			'name'		=> 'Steam Account',
 			'url'		=> 'steam/account',
-			'icon'		=> 'fa fa-cog',
+			'icon'		=> 'fa fa-steam-square',
+		),
+		'ms_games' => array(
+			'name'		=> 'MS Games',
+			'url'		=> 'steam/msgames',
+			'icon'		=> 'fa fa-windows',
 		),
 		'ms_account' => array(
 			'name'		=> 'MS Account',
 			'url'		=> 'steam/msaccount',
-			'icon'		=> 'fa fa-cog',
+			'icon'		=> 'fa fa-windows',
 		),
 		'epic_account' => array(
 			'name'		=> 'EPIC Account',
@@ -123,17 +128,17 @@ $config['ci_bootstrap'] = array(
 		'play_games' => array(
 			'name'		=> 'Play Games',
 			'url'		=> 'steam/playgames',
-			'icon'		=> 'fa fa-cog',
+			'icon'		=> 'fa fa-product-hunt',
 		),
 		'play_account' => array(
 			'name'		=> 'Play Account',
 			'url'		=> 'steam/playaccount',
-			'icon'		=> 'fa fa-cog',
+			'icon'		=> 'fa fa-product-hunt',
 		),
 		'origin_account' => array(
 			'name'		=> 'Origin Account',
 			'url'		=> 'steam/originaccount',
-			'icon'		=> 'fa fa-cog',
+			'icon'		=> 'fa fa-opera',
 		),
 		'steam_assign' => array(
 			'name'		=> 'User Database',

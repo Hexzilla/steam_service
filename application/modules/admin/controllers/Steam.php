@@ -31,12 +31,18 @@ class Steam extends Admin_Controller {
 	public function msaccount()
 	{
 		$this->mPageTitle = 'MS Acounts';
+		$this->mViewData['gamesList']=$this->users->execute_query("select * from ms_games");
 		$this->render('steam/msaccount', 'default');
 	}
 	public function epicaccount()
 	{
 		$this->mPageTitle = 'EPIC Acounts';
 		$this->render('steam/epicaccount', 'default');
+	}
+	public function msgames()
+	{
+		$this->mPageTitle = 'MS Games';
+		$this->render('steam/msgames', 'default');
 	}
 	public function playgames()
 	{
@@ -80,6 +86,21 @@ class Steam extends Admin_Controller {
 		exit(json_encode($arr));
 	}
 
+	public function GetMSGamesList(){
+		$rows=$this->users->execute_query("SELECT a.*,COALESCE(cnt,0) cnt FROM ms_games a left join (select count(*) cnt,gameid from ms_account group by gameid) b on a.id=b.gameid order by a.id");
+		$arr=array();
+		$i=0;
+		foreach ($rows as $row) {
+			foreach ($row as $key=>$val)
+				$arr[$i][$key]=$val;
+			$arr[$i]['action']="<div class=\"tools\">";
+			if(!$arr[$i]['cnt'])$arr[$i]['action'].="<a onclick=\"deleteBlog(".$row['id'].");\" title=\"delete\" class=\"delete-row\" aria-describedby=\"ui-tooltip-0\"><span class=\"delete-icon-custom\"></span></a>";
+			$arr[$i]['action'].="<a data-toggle=\"modal\" data-target=\"#modal-add\" onclick=\"editBlog(".$row['id'].",'".$row['name']."');\" title=\"edit\" class=\"edit_button\" aria-describedby=\"ui-tooltip-0\"><span class=\"edit-icon-custom\"></span></a></div>";
+			$i++;
+		}
+		exit(json_encode($arr));
+	}
+
 	public function GetPlayGamesList(){
 		$rows=$this->users->execute_query("SELECT a.*,COALESCE(cnt,0) cnt FROM play_games a left join (select count(*) cnt,gameid from play_account group by gameid) b on a.id=b.gameid order by a.id");
 		$arr=array();
@@ -109,7 +130,7 @@ class Steam extends Admin_Controller {
 		exit(json_encode($arr));
 	}
 	public function GetMSAccountList(){
-		$rows=$this->users->execute_query("SELECT a.*,COALESCE(cnt,0) cnt FROM ms_account a left join (select count(*) cnt,account from steam_assign where type=1 group by account) b on a.id=b.account order by a.id");
+		$rows=$this->users->execute_query("SELECT a.*,c.name game_name,COALESCE(cnt,0) cnt FROM ms_account a left join (select count(*) cnt,account from steam_assign where type=1 group by account) b on a.id=b.account join ms_games c on a.gameid=c.id order by a.id");
 		$arr=array();
 		$i=0;
 		foreach ($rows as $row) {
@@ -237,6 +258,25 @@ class Steam extends Admin_Controller {
 		);
 		echo json_encode($res);
 	}
+	public function msGamesSave()
+	{
+		$row=array(
+			'id'=>$_POST['id'],
+			'name'=>$_POST['name']
+		);
+		$id=$_POST['id'];
+		if($id){
+			$this->users->execute_update('ms_games','id',$row);
+		}else{
+			$id=$this->users->execute_insert('ms_games',$row);
+		}
+
+		$res=array(
+			'id'=>$id,
+			'msg'=>'ok'
+		);
+		echo json_encode($res);
+	}
 	public function playGamesSave()
 	{
 		$row=array(
@@ -289,8 +329,14 @@ class Steam extends Admin_Controller {
 		$row=array(
 			'id'=>$_POST['id'],
 			'name'=>$_POST['name'],
-			'gmail'=>$_POST['gmail'],
+			'gameid'=>$_POST['gamename'],
+			'account'=>$_POST['account'],
 			'password'=>$_POST['password'],
+			'code_gmail'=>$_POST['codegmail'],
+			'code_password'=>$_POST['codepassword'],
+			'system32id'=>$_POST['system32id'],
+			'appid'=>$_POST['appid'],
+			'dbdata'=>$_POST['dbdata'],
 			'created_date'=>date("Y-m-d"),
 		);
 		$id=$_POST['id'];
@@ -494,6 +540,17 @@ if(!$verified) {
 	{
 		if($_POST['id']){
 			$this->users->execute_delete('steam_games','id',$_POST['id']);
+		}
+		$res=array(
+			'id'=>$_POST['id'],
+			'msg'=>'ok'
+		);
+		echo json_encode($res);
+	}
+	public function msGamesDelete()
+	{
+		if($_POST['id']){
+			$this->users->execute_delete('ms_games','id',$_POST['id']);
 		}
 		$res=array(
 			'id'=>$_POST['id'],

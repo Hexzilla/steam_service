@@ -97,21 +97,21 @@
               <label for="inputEmail3" class="col-sm-2 control-label">System3 ID</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="add-blog-system32id" placeholder="Code Password">
+                <input type="text" class="form-control" id="add-blog-system32id" placeholder="System3 ID">
               </div>
             </div>
             <div class="form-group">
               <label for="inputEmail3" class="col-sm-2 control-label">AppID</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="add-blog-appid" placeholder="Code Password">
+                <input type="text" class="form-control" id="add-blog-appid" placeholder="App ID">
               </div>
             </div>
             <div class="form-group">
               <label for="inputEmail3" class="col-sm-2 control-label">DBDATA</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="add-blog-dbdata" placeholder="Code Password">
+                <input type="text" class="form-control" id="add-blog-dbdata" placeholder="DBDATA">
               </div>
             </div>
         </div>
