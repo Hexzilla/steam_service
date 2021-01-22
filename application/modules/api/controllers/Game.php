@@ -157,9 +157,9 @@ class Game extends MY_Controller {
 
         $steam_games = $this->users->execute_query("SELECT * from steam_games");
         $play_games = $this->users->execute_query("SELECT * from play_games");
-        $origin_games = $this->users->execute_query("SELECT id, name from origin_account group by name");
+        $origin_games = $this->users->execute_query("SELECT * from origin_games");
         $epic_games = $this->users->execute_query("SELECT id, name from epic_account group by name");
-        $ms_games = $this->users->execute_query("SELECT id, name from ms_account group by name");
+        $ms_games = $this->users->execute_query("SELECT * from ms_games");
 
 
         $query = "SELECT 

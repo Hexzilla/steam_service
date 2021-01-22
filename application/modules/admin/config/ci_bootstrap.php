@@ -135,6 +135,11 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'steam/playaccount',
 			'icon'		=> 'fa fa-product-hunt',
 		),
+		'origin_games' => array(
+			'name'		=> 'Origin Games',
+			'url'		=> 'steam/origingames',
+			'icon'		=> 'fa fa-opera',
+		),
 		'origin_account' => array(
 			'name'		=> 'Origin Account',
 			'url'		=> 'steam/originaccount',
